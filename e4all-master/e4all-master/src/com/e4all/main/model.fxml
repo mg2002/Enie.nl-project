@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e4all.main.MainController">
+
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab fx:id="overzichtTab" text="Overzicht">
+               <content>
+                  <VBox fx:id="mainVBOX" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <GridPane prefHeight="260.0" prefWidth="584.0" VBox.vgrow="ALWAYS">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView5" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="5" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator5" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar5" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV5" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery5" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets top="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView7" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="7" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator7" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar7" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV7" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery7" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets top="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView10" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="10" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="7.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator10" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar10" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV10" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery10" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets bottom="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView8" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="8" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator8" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar8" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV8" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery8" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets bottom="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView9" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="9" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator9" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar9" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV9" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery9" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets top="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView6" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="6" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator6" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar6" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV6" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery6" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets bottom="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView4" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="4" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator4" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV4" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery4" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets bottom="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <children>
+                                    <Label fx:id="battery2" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <ImageView id="imageView" fx:id="imageView2" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="2" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator2" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV2" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets bottom="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <Label fx:id="battery1" StackPane.alignment="TOP_RIGHT">
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Circle fx:id="indicator1" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Label text="1" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <ImageView id="imageView" fx:id="imageView1" fitHeight="81.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Rectangle fx:id="solar1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="#bfbaba07" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV1" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets top="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <children>
+                                    <ImageView id="imageView" fx:id="imageView3" fitHeight="96.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Resources/Assets/home.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label text="3" StackPane.alignment="BOTTOM_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="-10.0" right="10.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                    <Circle fx:id="indicator3" fill="#888888" radius="11.0" stroke="BLACK" strokeType="INSIDE" styleClass="customCircle" />
+                                    <Rectangle fx:id="solar3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="6.0" rotate="135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: transparent;" width="44.0" StackPane.alignment="TOP_CENTER">
+                                       <StackPane.margin>
+                                          <Insets right="50.0" top="18.0" />
+                                       </StackPane.margin>
+                                    </Rectangle>
+                                    <ImageView fx:id="EV3" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" visible="false" StackPane.alignment="BOTTOM_LEFT">
+                                       <image>
+                                          <Image url="@Resources/Assets/ev.png" />
+                                       </image>
+                                       <StackPane.margin>
+                                          <Insets bottom="-5.0" left="10.0" />
+                                       </StackPane.margin>
+                                    </ImageView>
+                                    <Label fx:id="battery3" StackPane.alignment="TOP_RIGHT">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets right="3.0" />
+                                       </StackPane.margin>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <GridPane.margin>
+                                    <Insets top="15.0" />
+                                 </GridPane.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </GridPane>
+                        <Separator opacity="0.5" prefWidth="200.0" />
+                        <HBox fx:id="infoHBOX" alignment="CENTER" prefHeight="111.0" prefWidth="600.0" spacing="5.0" styleClass="customTabPane" stylesheets="@style.css" VBox.vgrow="NEVER">
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Huidige tijd:" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Totale vraag: " GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Totale aanbod: " GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="timeLabel" text="00:00" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                                    <Label fx:id="totDemand" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label fx:id="totSupply" text="0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label text="Huidige surplus:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="currentSurplus" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label text="Totale surplus: " GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="totalSurplus" text="0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </GridPane>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <ImageView fx:id="sunIndicator" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" rotate="-121.0">
+                                 <image>
+                                    <Image url="@Resources/Assets/moon.jpeg" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Region HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER" prefHeight="75.0" prefWidth="248.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#startButton" styleClass="customButton" stylesheets="@style.css" text="Start" wrapText="true">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="pauseButton" mnemonicParsing="false" onMouseClicked="#pause" styleClass="customButton" text="Pause">
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="4.0" right="4.0" top="4.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content></Tab>
+            <Tab text="Transacties">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="160.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="249.0">
+                           <children>
+                              <VBox layoutX="38.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="prodConsLineChart" legendSide="LEFT" title="Totale productie &amp; consumptie">
+                                      <xAxis>
+                                        <CategoryAxis label="Tijd" side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis label="kWh" side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <LineChart fx:id="lineChart" legendSide="LEFT" styleClass="customChart" title="Totale vraag &amp; aanbod">
+                                       <xAxis>
+                                          <CategoryAxis label="Tijd" side="BOTTOM" tickLabelRotation="72.2" fx:id="x" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis fx:id="y" label="kWh" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="transactionPane" minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <VBox fx:id="transactionVBOX" alignment="CENTER">
+                                 <children>
+                                    <Label text="Transacties" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Group VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <TableView fx:id="transactionTable" prefHeight="400.0" prefWidth="306.0" style="-fx-background-color: transparent;">
+                                             <columns>
+                                                <TableColumn fx:id="timeColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="Tijd" />
+                                                <TableColumn fx:id="sellerColumn" maxWidth="2500.0" prefWidth="10.0" style="-fx-background-color: transparent;" text="Verkoper" />
+                                                <TableColumn fx:id="buyerColumn" maxWidth="2500.0" prefWidth="70.0" style="-fx-background-color: transparent;" text="Koper" />
+                                                <TableColumn fx:id="amountColumn" prefWidth="115.0" style="-fx-background-color: transparent;" text="Hoeveelheid (kWh)" />
+                                                <TableColumn fx:id="priceColumn" maxWidth="2000.0" prefWidth="60.0" style="-fx-background-color: transparent;" text="Prijs (€)" />
+                                             </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </Group>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets bottom="15.0" />
+                                 </opaqueInsets>
+                              </VBox>
+                           </children></AnchorPane>
+                     </items>
+                  </SplitPane>
+               </content></Tab>
+            <Tab text="Visualisatie">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="160.0">
+                     <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="249.0">
+                           <children>
+                              <VBox layoutX="38.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="surplusLineChart" legendSide="LEFT" styleClass="customChart" title="Wijksurplus">
+                                       <xAxis>
+                                          <CategoryAxis label="Tijd" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis label="kWh" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="transactionPane1" minHeight="0.0" minWidth="0.0" />
+                     </items>
+                  </SplitPane>
+               </content>
+            </Tab>
+            <Tab text="Instellingen">
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Algemene instellingen">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <GridPane prefHeight="259.0" prefWidth="285.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Automatische instellingen" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <Label fx:id="solarLabel" text="Zonnepanelen" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                                    <Label fx:id="EVLabel" text="Elektrische auto" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                                    <RadioButton fx:id="autoSettings" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="settings" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <ComboBox fx:id="houseChoice" prefHeight="25.0" prefWidth="131.0" promptText="Huisnummer" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="Huisnummer 1" />
+                                             <String fx:value="Huisnummer 2" />
+                                             <String fx:value="Huisnummer 3" />
+                                             <String fx:value="Huisnummer 4" />
+                                             <String fx:value="Huisnummer 5" />
+                                             <String fx:value="Huisnummer 6" />
+                                             <String fx:value="Huisnummer 7" />
+                                             <String fx:value="Huisnummer 8" />
+                                             <String fx:value="Huisnummer 9" />
+                                             <String fx:value="Huisnummer 10" />
+                                          </FXCollections>
+                                       </items>
+                                       <GridPane.margin>
+                                          <Insets top="20.0" />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                    <ComboBox fx:id="seasonChoice" onAction="#setSeason" prefHeight="25.0" prefWidth="130.0" promptText="Seizoen" GridPane.rowIndex="2">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="Lente" />
+                                             <String fx:value="Zomer" />
+                                             <String fx:value="Herfst" />
+                                             <String fx:value="Winter" />
+                                          </FXCollections>
+                                       </items>
+                                       <GridPane.margin>
+                                          <Insets bottom="15.0" />
+                                       </GridPane.margin>
+                                    </ComboBox>
+                                    <Label fx:id="residentLabel" text="Aantal bewoners" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                                    <ComboBox fx:id="residentChoice" prefWidth="10.0" promptText="..." GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="1" />
+                                             <String fx:value="2" />
+                                             <String fx:value="3" />
+                                             <String fx:value="4" />
+                                             <String fx:value="5" />
+                                          </FXCollections>
+                                       </items>
+                                    </ComboBox>
+                                    <Label text="Willekeurige instellingen" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <RadioButton fx:id="randomSettings" mnemonicParsing="false" toggleGroup="$settings" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <CheckBox fx:id="EVButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="solarButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="batteryButton" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" />
+                                       </GridPane.margin>
+                                    </CheckBox>
+                                    <Label fx:id="batteryLabel" text="Batterij" GridPane.rowIndex="7" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="25.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <Pane />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Dataexport instellingen">
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Label>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Exporteren">
+                                       <GridPane.margin>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <RadioButton fx:id="exportButton" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+            </Tab>
+            <Tab text="Prestaties">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <HBox prefHeight="343.0" prefWidth="600.0">
+                           <children>
+                              <VBox prefHeight="347.0" prefWidth="211.0">
+                                 <children>
+                                    <ComboBox fx:id="houseChoice1" prefHeight="18.0" prefWidth="131.0" promptText="Huisnummer">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="Huisnummer 1" />
+                                             <String fx:value="Huisnummer 2" />
+                                             <String fx:value="Huisnummer 3" />
+                                             <String fx:value="Huisnummer 4" />
+                                             <String fx:value="Huisnummer 5" />
+                                             <String fx:value="Huisnummer 6" />
+                                             <String fx:value="Huisnummer 7" />
+                                             <String fx:value="Huisnummer 8" />
+                                             <String fx:value="Huisnummer 9" />
+                                             <String fx:value="Huisnummer 10" />
+                                          </FXCollections>
+                                       </items>
+                                    </ComboBox>
+                                    <Label prefHeight="42.0" prefWidth="82.0" text="Aantal punten:" />
+                                    <Label prefHeight="18.0" prefWidth="150.0" text="Energie verhandeld in kWh:" />
+                                    <Label prefHeight="18.0" prefWidth="77.0" text="Huidige rang:" />
+                                    <Label prefHeight="18.0" prefWidth="83.0" text="Volgende rang:" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="343.0" prefWidth="393.0">
+                                 <children>
+                                    <Label prefHeight="26.0" prefWidth="394.0" text="Lijst met badges" />
+                                    <ListView prefHeight="278.0" prefWidth="392.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Winkel">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <MenuBar prefHeight="26.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="false" text="Over">
+               <items>
+                  <MenuItem fx:id="e4all" mnemonicParsing="false" onAction="#showStakeholders" text="Energy4All" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

@@ -1,0 +1,218 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <script>
+            var demand = {
+                x: {{ statistics['TimeslotStatistic'].get_value()["demand"]["x"] }}, 
+                y: {{ statistics['TimeslotStatistic'].get_value()["demand"]["y"] }}, 
+                name: 'Demand', 
+                marker: {color: 'rgb(55, 83, 109)'}, 
+                type: 'bar'
+            };
+            var supply = {
+                x: {{ statistics['TimeslotStatistic'].get_value()["supply"]["x"] }}, 
+                y: {{ statistics['TimeslotStatistic'].get_value()["supply"]["y"] }}, 
+                name: 'Supply', 
+                marker: {color: 'rgb(26, 118, 255)'}, 
+                type: 'bar'
+            };
+            var transactions = {
+                x: {{ statistics['TimeslotStatistic'].get_value()["total_allocated"]["x"] }},
+                y: {{ statistics['TimeslotStatistic'].get_value()["total_allocated"]["y"] }}, 
+                name: 'Transactions',
+                marker: {color: 'rgb(24, 188, 156)'},
+                type: 'bar'
+            }
+        </script>
+        <div id="myDiv"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Demand Requests</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ demand_count }}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Supply Requests</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ supply_count }}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Transactions</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ transaction_count }}
+            </p>
+          </div>
+        </div>
+    </div>    
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Total Demand</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['SupplyAndDemandRatioStatistic'].get_value()["total_demand"] }}
+                (min = {{ statistics['MinMaxStatistic'].get_value()['min_demand'] }}, 
+                max = {{ statistics['MinMaxStatistic'].get_value()['max_demand'] }})
+            </p>
+          </div>
+        </div>
+    </div>    
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Total Supply</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['SupplyAndDemandRatioStatistic'].get_value()["total_supply"] }}
+                (min = {{ statistics['MinMaxStatistic'].get_value()['min_supply'] }}, 
+                max = {{ statistics['MinMaxStatistic'].get_value()['max_supply'] }})
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Total Energy Allocated</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['AllocationStatistic'].get_value()["total_allocated"] }}
+                (min = {{ statistics['MinMaxStatistic'].get_value()['min_allocated'] }}, 
+                max = {{ statistics['MinMaxStatistic'].get_value()['max_allocated'] }})
+            </p>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">Average Demand</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['AverageAmountStatistic'].get_value()["demand"] }}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Average Supply</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['AverageAmountStatistic'].get_value()["supply"] }}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Average Energy Transaction</div>
+          <div class="card-body">
+            <p class="card-text">
+                {% if transaction_count > 0%}
+                    {{ statistics['AllocationStatistic'].get_value()["total_allocated"] / transaction_count }}
+                {% else %}
+                    0
+                {% endif %}
+            </p>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Average Demand Allocation</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['AllocationStatistic'].get_value()["average_allocated_demand"][0] }}%
+                (&sigma; = {{ statistics['AllocationStatistic'].get_value()["average_allocated_demand"][1] }})
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Average Supply Allocation</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['AllocationStatistic'].get_value()["average_allocated_supply"][0] }}%
+                (&sigma; = {{ statistics['AllocationStatistic'].get_value()["average_allocated_supply"][1] }})
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Supply / Demand Ratio</div>
+          <div class="card-body">
+            <p class="card-text">
+                {{ statistics['SupplyAndDemandRatioStatistic'].get_value()["ratio"] }}%
+            </p>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Allocated Demand</div>
+          <div class="card-body">
+            <p class="card-text">
+                {% if statistics['SupplyAndDemandRatioStatistic'].get_value()["total_demand"] > 0 %}
+                    {{ statistics['AllocationStatistic'].get_value()["total_allocated"] /  statistics['SupplyAndDemandRatioStatistic'].get_value()["total_demand"] * 100 }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </p>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+            <div class="card-header">Allocated Supply</div>
+          <div class="card-body">
+            <p class="card-text">
+                {% if statistics['SupplyAndDemandRatioStatistic'].get_value()["total_supply"] > 0 %}
+                    {{ statistics['AllocationStatistic'].get_value()["total_allocated"] /  statistics['SupplyAndDemandRatioStatistic'].get_value()["total_supply"] * 100 }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </p>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/plot.js') }}"></script>
+
+{% endblock %}

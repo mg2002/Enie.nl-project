@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Demand Request</h1>
+
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>Residence ID</th>
+            <th>Timeslot</th>
+            <th>Amount</th>
+            <th>Satisfied</th>
+            <th>Remaining</th>
+            <th>Energy Type</th>
+            <th>Start</th>
+            <th>Duration</th>
+            <th>Callback URL</th>
+            <th>Demand Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <td>{{demand.residence_id}}</td>
+            <td>{{demand.timeslot_id}}</td>
+            <td>{{demand.amount}}</td>
+            <td>{{demand.satisfied}}</td>
+            <td>{{demand.remaining}}</td>
+            <td>{{demand.energy_type}}</td>
+            <td>{{demand.start}}</td>
+            <td>{{demand.duration}}</td>
+            <td>{{demand.match_callback_url}}</td>
+            <td>{{demand._id}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% if transaction_count > 0 %}
+    <h3>Transactions</h3>
+
+    <table class="table">
+        <thead>
+            <tr class="table-success">
+                <th>Amount</th>
+                <th>Demand Id</th>
+                <th>Supply Id</th>
+                <th>Transaction Id</th>
+            </tr>
+        </thead>
+        {% for transaction in transactions %}
+            <tr class="table-light">
+                <td>{{ transaction.amount }}</td>
+                <td>
+                    <a href="/demand/{{ transaction.demand_id }}">{{ transaction.demand_id }}</a>
+                </td>
+                <td>
+                    <a href="/supply/{{ transaction.supply_id }}">{{ transaction.supply_id }}</a>
+                </td>
+                <td>
+                    <a href="/transactions/{{ transaction._id }}">{{ transaction._id }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+{% endblock %}

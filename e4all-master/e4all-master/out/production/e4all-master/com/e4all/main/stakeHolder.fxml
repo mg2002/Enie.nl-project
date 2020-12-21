@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8">
+   <children>
+       <ImageView fitHeight="84.0" fitWidth="182.0" layoutX="209.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/enexis.png" />
+           </image></ImageView>
+       <ImageView fitHeight="98.0" fitWidth="212.0" layoutX="47.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/enie.png" />
+           </image></ImageView>
+       <ImageView fitHeight="43.0" fitWidth="159.0" layoutX="86.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/rug.png" />
+           </image></ImageView>
+       <ImageView fitHeight="114.0" fitWidth="168.0" layoutX="345.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/entrance.png" />
+           </image></ImageView>
+       <ImageView fitHeight="34.0" fitWidth="145.0" layoutX="89.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/vodafone.png" />
+           </image></ImageView>
+       <ImageView fitHeight="70.0" fitWidth="234.0" layoutX="326.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/5groningen.png" />
+           </image></ImageView>
+       <ImageView fitHeight="37.0" fitWidth="128.0" layoutX="49.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@Resources/Assets/tno.png" />
+           </image></ImageView>
+      <ImageView fitHeight="34.0" fitWidth="145.0" layoutX="337.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Resources/Assets/panache.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="85.0" fitWidth="64.0" layoutX="483.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Resources/Assets/huawei.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

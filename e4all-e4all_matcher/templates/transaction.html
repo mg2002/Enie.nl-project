@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Transaction</h2>
+
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>Amount</th>
+            <th>Demand Id</th>
+            <th>Supply Id</th>
+            <th>Transaction Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <td>{{ transaction.amount }}</td>
+            <td>
+                <a href="/demand/{{ transaction.demand_id }}">{{ transaction.demand_id }}</a>
+            </td>
+            <td>
+                <a href="/supply/{{ transaction.supply_id }}">{{ transaction.supply_id }}</a>
+            </td>
+            <td>{{ transaction._id }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+.customButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15;
+    -fx-moz-border-radius:15px;
+    -fx-webkit-border-radius:15px;
+    -fx-border-radius:15px;
+    -fx-border-color:#44c767;
+    -fx-border-width:1px;
+    -fx-display:inline-block;
+    -fx-color:#ffffff;
+}
+.customButton:hover {
+    /*-fx-font-weight: bold;*/
+    -fx-border-width:2px;
+}
+
+.customCircle {
+    -fx-fill: none;
+    -fx-stroke-width: 0px;
+}
+
+.customTabPane{
+    -fx-padding: 10;
+    -fx-border-style: solid inside;
+    -fx-border-width: 9;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: linear-gradient(to top, transparent, transparent, #8c91aa, #546588, #0a3d66);
+
+}
+
+.customChart {
+    -fx-fill: none;
+    -fx-stroke-width: 0px;
+}
+
+
+
+.default-color0.chart-series-line { -fx-stroke: #44C767; }
+.default-color1.chart-series-line { -fx-stroke: #e9843b; }
+.default-color0.chart-line-symbol { -fx-background-color: #44C767, transparent; }
+.default-color1.chart-line-symbol { -fx-background-color: #e9843b, transparent; }

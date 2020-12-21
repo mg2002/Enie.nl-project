@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Transactions</h1>
+
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th>Count</th>
+            <th>Total Energy Allocated</th>
+            <th>Average Energy Transaction</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <td>{{ count }}</td>
+            <td>{{ statistics['AllocationStatistic'].get_value()["total_allocated"] }}</td>
+            <td>
+                {% if count > 0%}
+                    {{ statistics['AllocationStatistic'].get_value()["total_allocated"] / count }}
+                {% else %}
+                    0
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table">
+    <thead class="table-success">
+        <tr>
+            <th>Amount</th>
+            <th>Demand Id</th>
+            <th>Supply Id</th>
+            <th>Transaction Id</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for transaction in collection %}
+        <tr class="table-light">
+            <td>{{ transaction.amount }}</td>
+            <td>
+                <a href="/demand/{{ transaction.demand_id }}">{{ transaction.demand_id }}</a>
+            </td>
+            <td>
+                <a href="/supply/{{ transaction.supply_id }}">{{ transaction.supply_id }}</a>
+            </td>
+            <td>
+                <a href="/transactions/{{ transaction._id }}">{{ transaction._id }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

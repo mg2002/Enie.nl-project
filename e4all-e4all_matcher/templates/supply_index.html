@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Supply</h1>
+
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>Count</th>
+            <th>Total Supply</th>
+            <th>Average Supply</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-light">
+            <td>{{ count }}</td>
+            <td>{{ statistics['SupplyAndDemandRatioStatistic'].get_value()["total_supply"] }}</td>
+            <td>{{ statistics['AverageAmountStatistic'].get_value()["supply"] }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr class="table-success">
+            <th>Residence ID</th>
+            <th>Timeslot</th>
+            <th>Amount</th>
+            <th>Remaining</th>
+            <th>Energy Type</th>
+            <th>Start</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Callback URL</th>
+            <th>Supply Id</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for supply in collection %}
+        <tr class="table-light">
+            <td>{{supply.residence_id}}</td>
+            <td>{{supply.timeslot_id}}</td>
+            <td>{{supply.amount}}</td>
+            <td>{{supply.remaining}}</td>
+            <td>{{supply.energy_type}}</td>
+            <td>{{supply.start}}</td>
+            <td>{{supply.duration}}</td>
+            <td>{{supply.price}}</td>
+            <td>{{supply.match_callback_url}}</td>
+            <td>
+                <a href="/supply/{{supply._id}}">{{supply._id}}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
