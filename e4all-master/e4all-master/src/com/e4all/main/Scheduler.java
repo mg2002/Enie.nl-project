@@ -2,6 +2,7 @@ package com.e4all.main;
 import util.StringArray;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 class Scheduler {
@@ -81,6 +82,21 @@ class Scheduler {
                             System.out.println("Exported to a external files, system will now exit.");
                         }
                         System.out.println("No export. System will now exit.");
+                        System.out.println("Total prices of households: ");
+                        Double[] priceArray = Controllers.getMainController().getCumulativePrices();
+                        for(int i = 0; i < priceArray.length; i++){
+                            System.out.println("Household " + (i+1) + ": " + priceArray[i]);
+                        }
+                        System.out.println("Total amounts of households: ");
+                        Double[] amountArray = Controllers.getMainController().getCumulativeKWh();
+                        for(int i = 0; i < amountArray.length; i++){
+                            System.out.println("Household " + (i+1) + ": " + amountArray[i]);
+                        }
+                        System.out.println("Total points: ");
+                        int[] pointsArray = Controllers.getMainController().getPoints();
+                        for(int i = 0; i < pointsArray.length; i++){
+                            System.out.println("Household " + (i+1) + ": " + pointsArray[i]);
+                        }
                         Scheduler.pause = true;
                         //System.exit(0);
                     }
@@ -107,12 +123,14 @@ class Scheduler {
                     else {
                         Controllers.getMainController().setMoon();
                     }
-
+                    Arrays.fill(Controllers.getMainController().cumulativeSupplyKWh, 0.0);
                     Controllers.getMainController().setTimeLabel(timeToSend);
                     Controllers.getMainController().setTotalDemand(totalDemand);
                     Controllers.getMainController().setTotalSupply(totalSupply);
                     Controllers.getMainController().setCurrentSurplus(currentSurplus);
                     Controllers.getMainController().setTotalSurplus(totalSurplus);
+                    Controllers.getMainController().setKWh();
+                    Controllers.getMainController().setAmountOfSoldEnergy();
                     Controllers.getMainController().addToSurplusSeries(timeToSend, currentSurplus);
 
                     Controllers.getMainController().addToSeries(false, timeToSend, cycleSupply);

@@ -3,6 +3,7 @@ package com.e4all.main;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class TransactionParser {
@@ -60,7 +61,6 @@ class TransactionParser {
                 SingleTransaction singleTransaction = new SingleTransaction(supplyResidence.intValue(), demandResidence.intValue(), amount, timeToSend);
                 MainController.transactionObservableList.add(singleTransaction);
                 singleTransactionList.add(singleTransaction);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

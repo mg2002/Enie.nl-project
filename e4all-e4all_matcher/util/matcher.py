@@ -1,7 +1,7 @@
 import numpy as np
 from models.models import EnergyTransaction, Supply, Demand
-from http.client import HTTPConnection
-from urllib.parse import urlparse
+from httplib import HTTPConnection
+from urlparse import urlparse
 
 FIRST_FIT = 0
 BEST_FIT = 1

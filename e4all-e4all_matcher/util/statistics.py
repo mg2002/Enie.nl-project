@@ -63,7 +63,7 @@ class AllocationStatistic(Statistic):
         if type(position) is Demand:
             self.demand_allocation.append(position.satisfied * 1.0 / position.amount * 100.0)
         if type(position) is Supply:
-            self.supply_allocation.append((position.amount - position.remaining * 1.0) / (position.amount) * 100.0)
+            self.supply_allocation.append((position.amount - position.remaining * 1.0) / (position.amount + 0.00001) * 100.0)
         if type(position) is EnergyTransaction:
             self.total_allocated += position.amount
 
