@@ -25,7 +25,7 @@ class Scheduler {
     static Double previousCycleSurplus = 0.0;
     static Double previousProdConsSurplus = 0.0;
 
-    static  Integer batteryAmount = 0;
+    static Integer batteryAmount = 0;
 
     static String season;
 
@@ -67,6 +67,7 @@ class Scheduler {
 
             int currentNumber = 0;
             int timeslotId = 0;
+            int current_day = 1;
             hasBeenStarted = true;
 
             while (true) {
@@ -76,29 +77,32 @@ class Scheduler {
 //                    String end = "23:45";
                     System.out.println("EINDE: " + end);
                     if(timeToSend.equals(end)) {
-                        if (export.equals(true)){
-                            transactions.getSingleTransactionList().forEach(transaction-> exportFile.append_transaction(transaction));
-                            exportFile.export();
-                            System.out.println("Exported to a external files, system will now exit.");
+                        current_day++;
+                        if(current_day == Controllers.getMainController().getDays()) {
+                            if (export.equals(true)) {
+                                transactions.getSingleTransactionList().forEach(transaction -> exportFile.append_transaction(transaction));
+                                exportFile.export();
+                                System.out.println("Exported to a external files, system will now exit.");
+                            }
+                            System.out.println("No export. System will now exit.");
+                            System.out.println("Total prices of households: ");
+                            Double[] priceArray = Controllers.getMainController().getCumulativePrices();
+                            for (int i = 0; i < priceArray.length; i++) {
+                                System.out.println("Household " + (i + 1) + ": " + priceArray[i]);
+                            }
+                            System.out.println("Total amounts of households: ");
+                            Double[] amountArray = Controllers.getMainController().getCumulativeKWh();
+                            for (int i = 0; i < amountArray.length; i++) {
+                                System.out.println("Household " + (i + 1) + ": " + amountArray[i]);
+                            }
+                            System.out.println("Total points: ");
+                            Double[] pointsArray = Controllers.getMainController().getPoints();
+                            for (int i = 0; i < pointsArray.length; i++) {
+                                System.out.println("Household " + (i + 1) + ": " + pointsArray[i]);
+                            }
+                            Scheduler.pause = true;
+                            //System.exit(0);
                         }
-                        System.out.println("No export. System will now exit.");
-                        System.out.println("Total prices of households: ");
-                        Double[] priceArray = Controllers.getMainController().getCumulativePrices();
-                        for(int i = 0; i < priceArray.length; i++){
-                            System.out.println("Household " + (i+1) + ": " + priceArray[i]);
-                        }
-                        System.out.println("Total amounts of households: ");
-                        Double[] amountArray = Controllers.getMainController().getCumulativeKWh();
-                        for(int i = 0; i < amountArray.length; i++){
-                            System.out.println("Household " + (i+1) + ": " + amountArray[i]);
-                        }
-                        System.out.println("Total points: ");
-                        int[] pointsArray = Controllers.getMainController().getPoints();
-                        for(int i = 0; i < pointsArray.length; i++){
-                            System.out.println("Household " + (i+1) + ": " + pointsArray[i]);
-                        }
-                        Scheduler.pause = true;
-                        //System.exit(0);
                     }
 
                     for (House item : houses){
@@ -124,14 +128,17 @@ class Scheduler {
                         Controllers.getMainController().setMoon();
                     }
                     Arrays.fill(Controllers.getMainController().cumulativeSupplyKWh, 0.0);
+                    Arrays.fill(Controllers.getMainController().points, 0.0);
                     Controllers.getMainController().setTimeLabel(timeToSend);
                     Controllers.getMainController().setTotalDemand(totalDemand);
                     Controllers.getMainController().setTotalSupply(totalSupply);
                     Controllers.getMainController().setCurrentSurplus(currentSurplus);
                     Controllers.getMainController().setTotalSurplus(totalSurplus);
                     Controllers.getMainController().setKWh();
+                    Controllers.getMainController().setPoints();
                     Controllers.getMainController().setAmountOfSoldEnergy();
                     Controllers.getMainController().addToSurplusSeries(timeToSend, currentSurplus);
+                    Controllers.getMainController().setDays(Controllers.getMainController().getDays());
 
                     Controllers.getMainController().addToSeries(false, timeToSend, cycleSupply);
                     Controllers.getMainController().addToSeries(true, timeToSend, cycleDemand);

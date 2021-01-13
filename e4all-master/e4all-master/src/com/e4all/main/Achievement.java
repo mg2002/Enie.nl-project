@@ -1,20 +1,14 @@
 package com.e4all.main;
 
-import javafx.scene.image.Image;
-
 public class Achievement {
-    private Image badge;
     private String title;
     private String description;
+    private int level;
 
-    public Achievement(Image badge, String title, String description){
+    public Achievement(int level, String title, String description){
         this.title = title;
         this.description = description;
-        this.badge = badge;
-    }
-
-    public void drawAchievement(){
-
+        this.level = level;
     }
 
     public String getTitle(){
@@ -25,11 +19,19 @@ public class Achievement {
         return description;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public void setTitle(String title){
         this.title = title;
     }
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

@@ -24,22 +24,22 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable{
 
 
     Scheduler newScheduler;
+    int days = 1;
     GlobalVariables globalVariables = new GlobalVariables();
     Double[] cumulativeSupplyPrices = new Double[10];
     //Double[] cumulativeBuyerPrices = new Double[10];
     Double[] cumulativeSupplyKWh = new Double[10];
     //Double[] cumulativeBuyerKWh = new Double[10];
-    int[] points = new int[10];
+    Double[] points = new Double[10];
     HashMap<Integer, HashMap<String, String>> currentMap = new HashMap<>();
+    Achievement trader = new Achievement(0, "Energiehandelaar", "Verhandel 2 kWh aan energie.");
+
     Boolean autoSelected = false;
     Boolean randomSelected = false;
     DecimalFormat decimalFormatter = new DecimalFormat("0.000");
@@ -52,12 +52,9 @@ public class MainController implements Initializable{
     XYChart.Series surplusSeries;
     public static ObservableList<SingleTransaction> transactionObservableList = FXCollections.observableArrayList();
     public static ObservableList<Achievement> achievementObservableList = FXCollections.observableArrayList();
+    public static ObservableList<Product> productObservableList = FXCollections.observableArrayList();
     Image moonImage = new Image("com/e4all/main/Resources/Assets/moon.jpeg");
     Image sunImage = new Image("com/e4all/main/Resources/Assets/sun.jpg");
-
-
-    @FXML
-    private ListView<Achievement> achievementList;
 
     @FXML
     public ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9, imageView10, EV1, EV2, EV3, EV4, EV5, EV6, EV7, EV8, EV9, EV10, sunIndicator;
@@ -75,7 +72,7 @@ public class MainController implements Initializable{
     public ToggleGroup settings;
 
     @FXML
-    public ComboBox houseChoice, residentChoice, seasonChoice;
+    public ComboBox houseChoice, residentChoice, seasonChoice, daysChoice;
 
     @FXML
     public Label totDemand, totSupply, timeLabel, EVLabel, residentLabel, solarLabel, currentSurplus, totalSurplus, batteryLabel;
@@ -103,7 +100,7 @@ public class MainController implements Initializable{
     public Label amountOfPoints, amountOfSoldEnergy, currentRank;
 
     @FXML
-    public AnchorPane transactionPane;
+    public AnchorPane transactionPane, achievementPane;
 
     @FXML
     private LineChart<String, Number> lineChart, prodConsLineChart, surplusLineChart;
@@ -112,10 +109,28 @@ public class MainController implements Initializable{
     private TableView<SingleTransaction> transactionTable;
 
     @FXML
-    private ListView<String> winkelList;
+    private TableColumn timeColumn, buyerColumn, sellerColumn, amountColumn, priceColumn;
 
     @FXML
-    private TableColumn timeColumn, buyerColumn, sellerColumn, amountColumn, priceColumn;
+    private TableView<Product> shopItemsTable;
+
+    @FXML
+    private TableColumn productColumn, productCostColumn;
+
+    @FXML
+    private TableView<Achievement> achievementList;
+
+    @FXML
+    private TableColumn achievementNameColumn, achievementDescriptionColumn, achievementLevelColumn;
+
+
+    public int getDays(){
+        return this.daysChoice.getSelectionModel().getSelectedIndex();
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
 
     public void setKWh(){
         for(int i = 0; i < 10; i++){
@@ -125,9 +140,11 @@ public class MainController implements Initializable{
                     total += transaction.getAmount();
                 }
                 this.cumulativeSupplyKWh[i] = total;
+                points[i] = total / 2;
             }
-            if(total % 5 == 0){
+            if(total % 5.0 == 0){
                 points[i]++;
+                trader.setLevel(trader.getLevel() + 1);
             }
         }
     }
@@ -143,7 +160,7 @@ public class MainController implements Initializable{
         }
     }
 
-    public int[] getPoints(){
+    public Double[] getPoints(){
         return points;
     }
 
@@ -197,10 +214,28 @@ public class MainController implements Initializable{
         transactionTable.prefWidthProperty().bind(transactionPane.widthProperty());
         transactionTable.prefHeightProperty().bind(transactionPane.heightProperty());
 
-        winkelList.getItems().add("Enie.nl Gum (1 punt)");
-        winkelList.getItems().add("Tony Chocolonely (10 punten)");
-        winkelList.getItems().add("Nintendo Switch (300 punten)");
+        productObservableList.add(new Product("Wegwerpbestek-set", 2));
+        productObservableList.add(new Product("Neleman bio-wijn", 8));
+        productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 20));
+        productObservableList.add(new Product("Bamboe ondergoed", 30));
+        productObservableList.add(new Product("Fairphone 3", 200));
+        productObservableList.add(new Product("Extra zonnepaneel", 250));
+
+        shopItemsTable.setItems(productObservableList);
+        productColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        shopItemsTable.setPlaceholder(new Label("Heel misschien zijn er geen items toegevoegd."));
+
+        achievementObservableList.add(trader);
+
+        achievementList.setItems(achievementObservableList);
+        achievementNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        achievementDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        achievementLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
+        achievementList.setPlaceholder(new Label("Heel misschien zijn er geen achievements toegevoegd."));
     }
+
+
 
     @FXML
     public void setTooltip(String text, int houseNumber){
@@ -260,10 +295,21 @@ public class MainController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex() + 1;
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex() /*+ 1*/;
                 if(cumulativeSupplyKWh.length > 0){
-                    amountOfSoldEnergy.setText(new DecimalFormat("#.##").format(cumulativeSupplyKWh[selectedHouse])/*.toString()*/);
+                    amountOfSoldEnergy.setText(new DecimalFormat("#.##").format(cumulativeSupplyKWh[selectedHouse]));
                 }
+            }
+        });
+    }
+
+    @FXML
+    public void setPoints(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex() /*+ 1*/;
+                amountOfPoints.setText(String.valueOf(Math.floor(points[selectedHouse])));
             }
         });
     }
