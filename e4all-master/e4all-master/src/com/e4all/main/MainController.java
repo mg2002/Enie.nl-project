@@ -37,8 +37,8 @@ public class MainController implements Initializable{
     Double[] cumulativeSupplyKWh = new Double[10];
     //Double[] cumulativeBuyerKWh = new Double[10];
     Double[] points = new Double[10];
+    ObservableList[] achievements = new ObservableList[10];
     HashMap<Integer, HashMap<String, String>> currentMap = new HashMap<>();
-    Achievement trader = new Achievement(0, "Energiehandelaar", "Verhandel 2 kWh aan energie.");
 
     Boolean autoSelected = false;
     Boolean randomSelected = false;
@@ -97,7 +97,7 @@ public class MainController implements Initializable{
     public ComboBox houseChoice1;
 
     @FXML
-    public Label amountOfPoints, amountOfSoldEnergy, currentRank;
+    public Label amountOfPoints, amountOfRevenue, amountOfSoldEnergy, currentRank;
 
     @FXML
     public AnchorPane transactionPane, achievementPane;
@@ -123,6 +123,9 @@ public class MainController implements Initializable{
     @FXML
     private TableColumn achievementNameColumn, achievementDescriptionColumn, achievementLevelColumn;
 
+    @FXML
+    public ProgressBar rankProgressBar;
+
 
     public int getDays(){
         return this.daysChoice.getSelectionModel().getSelectedIndex();
@@ -140,13 +143,34 @@ public class MainController implements Initializable{
                     total += transaction.getAmount();
                 }
                 this.cumulativeSupplyKWh[i] = total;
-                points[i] = total / 2;
-            }
-            if(total % 5.0 == 0){
-                points[i]++;
-                trader.setLevel(trader.getLevel() + 1);
+                Achievement trader = (Achievement) achievements[i].get(0);
+                int[] traderMilestones = trader.getMilestones();
+                if(total >= traderMilestones[trader.getLevel()]){
+                    trader.setLevel(trader.getLevel() + 1);
+                    trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " aan energie.");
+                    points[i]++;
+                    updateAchievementRank();
+                }
             }
         }
+    }
+
+    public void fillPointsArray(){
+        for(int i = 0; i < 10; i++){
+            if(points[i] == null){
+                points[i] = 0.0;
+            }
+        }
+    }
+
+    public void updateAchievementRank(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                achievementList.getColumns().get(2).setVisible(false);
+                achievementList.getColumns().get(2).setVisible(true);
+            }
+        });
     }
     public void setPrices(){
         for(int i = 0; i < 10; i++){
@@ -156,6 +180,14 @@ public class MainController implements Initializable{
                     total += transaction.getPrice();
                 }
                 this.cumulativeSupplyPrices[i] = total;
+                Achievement trader2 = (Achievement) achievements[i].get(2);
+                int[] traderMilestones = trader2.getMilestones();
+                if(total >= traderMilestones[trader2.getLevel()]){
+                    trader2.setLevel(trader2.getLevel() + 1);
+                    trader2.setDescription("Maak €" + traderMilestones[trader2.getLevel()] + " omzet.");
+                    points[i]++;
+                    updateAchievementRank();
+                }
             }
         }
     }
@@ -171,6 +203,7 @@ public class MainController implements Initializable{
     public Double[] getCumulativeKWh(){
         return cumulativeSupplyKWh;
     }
+
     public void startProgram(){
         newScheduler = new Scheduler(currentMap);
         newScheduler.run();
@@ -195,6 +228,7 @@ public class MainController implements Initializable{
         surplusSeries = new XYChart.Series();
         surplusSeries.setName("Surplus");
 
+        houseChoice1.getSelectionModel().selectFirst();
         transactionTable.setItems(getTransaction());
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeslot"));
         buyerColumn.setCellValueFactory(new PropertyValueFactory<>("buyerID"));
@@ -216,7 +250,9 @@ public class MainController implements Initializable{
 
         productObservableList.add(new Product("Wegwerpbestek-set", 2));
         productObservableList.add(new Product("Neleman bio-wijn", 8));
+        productObservableList.add(new Product("15% korting op de volgende energierekening", 10));
         productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 20));
+        productObservableList.add(new Product("30% korting op volgende energierekening", 20));
         productObservableList.add(new Product("Bamboe ondergoed", 30));
         productObservableList.add(new Product("Fairphone 3", 200));
         productObservableList.add(new Product("Extra zonnepaneel", 250));
@@ -226,9 +262,15 @@ public class MainController implements Initializable{
         productCostColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         shopItemsTable.setPlaceholder(new Label("Heel misschien zijn er geen items toegevoegd."));
 
-        achievementObservableList.add(trader);
-
-        achievementList.setItems(achievementObservableList);
+        for(int i=0; i<10; i++){
+            ObservableList<Achievement> achievementsPerHouse = FXCollections.observableArrayList();
+            achievementsPerHouse.add(new Achievement(0, "Energiehandelaar", "Verhandel 1 kWh aan energie.", new int[]{1, 2, 5, 10, 20}));
+            achievementsPerHouse.add(new Achievement(0, "Oplader", "Laad de batterij 1 keer op.", new int[]{1, 2, 5, 10, 20}));
+            achievementsPerHouse.add(new Achievement(0, "Verkoper", "Maak €1 omzet.", new int[]{1, 2, 3, 5, 10, 20}));
+            achievements[i] = achievementsPerHouse;
+        }
+        int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
+        achievementList.setItems(achievements[selectedHouse]);
         achievementNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         achievementDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         achievementLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
@@ -291,13 +333,16 @@ public class MainController implements Initializable{
 
     }
     @FXML
-    public void setAmountOfSoldEnergy(){
+    public void setLabelsInAchievements(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex() /*+ 1*/;
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
                 if(cumulativeSupplyKWh.length > 0){
                     amountOfSoldEnergy.setText(new DecimalFormat("#.##").format(cumulativeSupplyKWh[selectedHouse]));
+                }
+                if(cumulativeSupplyPrices.length > 0){
+                    amountOfRevenue.setText(new DecimalFormat("#.##").format(cumulativeSupplyPrices[selectedHouse]));
                 }
             }
         });
@@ -308,7 +353,7 @@ public class MainController implements Initializable{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex() /*+ 1*/;
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
                 amountOfPoints.setText(String.valueOf(Math.floor(points[selectedHouse])));
             }
         });

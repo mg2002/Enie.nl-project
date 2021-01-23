@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fd70e61-310d-45a2-8391-820403f1a6fb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../e4all-master/e4all-master/src/com/e4all/main/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../e4all-master/e4all-master/out/production/e4all-master/com/e4all/main/model.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../e4all-master/e4all-master/out/production/e4all-master/com/e4all/main/model.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../e4all-master/e4all-master/src/com/e4all/main/Achievement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../e4all-master/e4all-master/src/com/e4all/main/Achievement.java" afterDir="false" />
@@ -182,6 +181,15 @@
       <workItem from="1610285504625" duration="1628000" />
       <workItem from="1610358844370" duration="2391000" />
       <workItem from="1610444845298" duration="1195000" />
+      <workItem from="1610542835651" duration="785000" />
+      <workItem from="1610704161346" duration="638000" />
+      <workItem from="1610898718645" duration="2089000" />
+      <workItem from="1610964300976" duration="1710000" />
+      <workItem from="1611070707819" duration="603000" />
+      <workItem from="1611148555393" duration="1911000" />
+      <workItem from="1611231258669" duration="2227000" />
+      <workItem from="1611317336692" duration="643000" />
+      <workItem from="1611404878877" duration="1027000" />
     </task>
     <servers />
   </component>
@@ -220,6 +228,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/e4all_e4all_matcher$api.coverage" NAME="api Coverage Results" MODIFIED="1606300957274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/e4all_e4all_matcher$matcher.coverage" NAME="matcher Coverage Results" MODIFIED="1606168041273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
-    <SUITE FILE_PATH="coverage/e4all_e4all_matcher$Flask__api_py_app_.coverage" NAME="Flask (api.py:app) Coverage Results" MODIFIED="1610543022617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/e4all_e4all_matcher$Flask__api_py_app_.coverage" NAME="Flask (api.py:app) Coverage Results" MODIFIED="1611405339965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

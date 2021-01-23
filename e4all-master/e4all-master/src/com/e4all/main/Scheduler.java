@@ -77,8 +77,8 @@ class Scheduler {
 //                    String end = "23:45";
                     System.out.println("EINDE: " + end);
                     if(timeToSend.equals(end)) {
-                        current_day++;
-                        if(current_day == Controllers.getMainController().getDays()) {
+                        //current_day++;
+                        //if(current_day == Controllers.getMainController().getDays()) {
                             if (export.equals(true)) {
                                 transactions.getSingleTransactionList().forEach(transaction -> exportFile.append_transaction(transaction));
                                 exportFile.export();
@@ -102,7 +102,7 @@ class Scheduler {
                             }
                             Scheduler.pause = true;
                             //System.exit(0);
-                        }
+                        //}
                     }
 
                     for (House item : houses){
@@ -128,15 +128,17 @@ class Scheduler {
                         Controllers.getMainController().setMoon();
                     }
                     Arrays.fill(Controllers.getMainController().cumulativeSupplyKWh, 0.0);
-                    Arrays.fill(Controllers.getMainController().points, 0.0);
+                    Arrays.fill(Controllers.getMainController().cumulativeSupplyPrices, 0.0);
+                    Controllers.getMainController().fillPointsArray();
                     Controllers.getMainController().setTimeLabel(timeToSend);
                     Controllers.getMainController().setTotalDemand(totalDemand);
                     Controllers.getMainController().setTotalSupply(totalSupply);
                     Controllers.getMainController().setCurrentSurplus(currentSurplus);
                     Controllers.getMainController().setTotalSurplus(totalSurplus);
                     Controllers.getMainController().setKWh();
+                    Controllers.getMainController().setPrices();
                     Controllers.getMainController().setPoints();
-                    Controllers.getMainController().setAmountOfSoldEnergy();
+                    Controllers.getMainController().setLabelsInAchievements();
                     Controllers.getMainController().addToSurplusSeries(timeToSend, currentSurplus);
                     Controllers.getMainController().setDays(Controllers.getMainController().getDays());
 

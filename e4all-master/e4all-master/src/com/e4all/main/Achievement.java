@@ -4,11 +4,13 @@ public class Achievement {
     private String title;
     private String description;
     private int level;
+    private int[] milestones;
 
-    public Achievement(int level, String title, String description){
+    public Achievement(int level, String title, String description, int[] milestones){
         this.title = title;
         this.description = description;
         this.level = level;
+        this.milestones = milestones;
     }
 
     public String getTitle(){
@@ -21,6 +23,10 @@ public class Achievement {
 
     public int getLevel() {
         return level;
+    }
+
+    public int[] getMilestones(){
+        return milestones;
     }
 
     public void setTitle(String title){
