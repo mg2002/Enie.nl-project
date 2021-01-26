@@ -5,6 +5,7 @@ public class Achievement {
     private String description;
     private int level;
     private int[] milestones;
+    private boolean achieved = false;
 
     public Achievement(int level, String title, String description, int[] milestones){
         this.title = title;
@@ -29,6 +30,10 @@ public class Achievement {
         return milestones;
     }
 
+    public boolean getAchieved(){
+        return achieved;
+    }
+
     public void setTitle(String title){
         this.title = title;
     }
@@ -39,5 +44,9 @@ public class Achievement {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setAchieved(boolean achieved) {
+        this.achieved = achieved;
     }
 }

@@ -21,6 +21,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -60,7 +61,7 @@ public class MainController implements Initializable{
     public ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9, imageView10, EV1, EV2, EV3, EV4, EV5, EV6, EV7, EV8, EV9, EV10, sunIndicator;
 
     @FXML
-    public Button pauseButton;
+    public Button pauseButton, payButton;
 
     @FXML
     public RadioButton autoSettings, randomSettings, exportButton;
@@ -72,11 +73,14 @@ public class MainController implements Initializable{
     public ToggleGroup settings;
 
     @FXML
-    public ComboBox houseChoice, residentChoice, seasonChoice, daysChoice;
+    public ComboBox houseChoice, residentChoice, seasonChoice, daysChoice, houseChoice11;
 
     @FXML
     public Label totDemand, totSupply, timeLabel, EVLabel, residentLabel, solarLabel, currentSurplus, totalSurplus, batteryLabel;
     public Label battery1, battery2, battery3, battery4, battery5, battery6, battery7, battery8, battery9, battery10;
+
+    @FXML
+    public Label currentDay;
 
     @FXML
     public Circle indicator1, indicator2, indicator3, indicator4, indicator5, indicator6, indicator7, indicator8, indicator9, indicator10;
@@ -97,7 +101,7 @@ public class MainController implements Initializable{
     public ComboBox houseChoice1;
 
     @FXML
-    public Label amountOfPoints, amountOfRevenue, amountOfSoldEnergy, currentRank;
+    public Label amountOfPoints, amountOfPoints1, amountOfRevenue, amountOfSoldEnergy, warningLabel;
 
     @FXML
     public AnchorPane transactionPane, achievementPane;
@@ -123,12 +127,9 @@ public class MainController implements Initializable{
     @FXML
     private TableColumn achievementNameColumn, achievementDescriptionColumn, achievementLevelColumn;
 
-    @FXML
-    public ProgressBar rankProgressBar;
-
 
     public int getDays(){
-        return this.daysChoice.getSelectionModel().getSelectedIndex();
+        return this.daysChoice.getSelectionModel().getSelectedIndex() + 1;
     }
 
     public void setDays(int days) {
@@ -147,7 +148,7 @@ public class MainController implements Initializable{
                 int[] traderMilestones = trader.getMilestones();
                 if(total >= traderMilestones[trader.getLevel()]){
                     trader.setLevel(trader.getLevel() + 1);
-                    trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " aan energie.");
+                    trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " kWh aan energie.");
                     points[i]++;
                     updateAchievementRank();
                 }
@@ -172,6 +173,7 @@ public class MainController implements Initializable{
             }
         });
     }
+
     public void setPrices(){
         for(int i = 0; i < 10; i++){
             double total = 0.0;
@@ -229,6 +231,8 @@ public class MainController implements Initializable{
         surplusSeries.setName("Surplus");
 
         houseChoice1.getSelectionModel().selectFirst();
+        houseChoice11.getSelectionModel().selectFirst();
+        daysChoice.getSelectionModel().selectFirst();
         transactionTable.setItems(getTransaction());
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeslot"));
         buyerColumn.setCellValueFactory(new PropertyValueFactory<>("buyerID"));
@@ -242,20 +246,22 @@ public class MainController implements Initializable{
         prodConsLineChart.getData().addAll(productionSeries,consumptionSeries);
         prodConsLineChart.setCreateSymbols(false);
 
+        days = getDays();
+
         surplusLineChart.getData().addAll(surplusSeries);
         surplusLineChart.setCreateSymbols(false);
 
         transactionTable.prefWidthProperty().bind(transactionPane.widthProperty());
         transactionTable.prefHeightProperty().bind(transactionPane.heightProperty());
 
-        productObservableList.add(new Product("Wegwerpbestek-set", 2));
-        productObservableList.add(new Product("Neleman bio-wijn", 8));
-        productObservableList.add(new Product("15% korting op de volgende energierekening", 10));
-        productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 20));
-        productObservableList.add(new Product("30% korting op volgende energierekening", 20));
-        productObservableList.add(new Product("Bamboe ondergoed", 30));
-        productObservableList.add(new Product("Fairphone 3", 200));
-        productObservableList.add(new Product("Extra zonnepaneel", 250));
+        productObservableList.add(new Product("Wegwerpbestek-set", 1));
+        productObservableList.add(new Product("Neleman bio-wijn", 2));
+        productObservableList.add(new Product("15% korting op de volgende energierekening", 3));
+        productObservableList.add(new Product("30% korting op volgende energierekening", 5));
+        productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 6));
+        productObservableList.add(new Product("Bamboe ondergoed", 8));
+        productObservableList.add(new Product("Fairphone 3", 40));
+        productObservableList.add(new Product("Extra zonnepaneel", 50));
 
         shopItemsTable.setItems(productObservableList);
         productColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -304,6 +310,16 @@ public class MainController implements Initializable{
     }
 
     @FXML
+    public void setCurrentDay(int current){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                currentDay.setText(String.valueOf(current + 1));
+            }
+        });
+    }
+
+    @FXML
     public void startButton() {
         try {
             if (Scheduler.hasBeenStarted.equals(false)) {
@@ -343,6 +359,19 @@ public class MainController implements Initializable{
                 }
                 if(cumulativeSupplyPrices.length > 0){
                     amountOfRevenue.setText(new DecimalFormat("#.##").format(cumulativeSupplyPrices[selectedHouse]));
+                }
+            }
+        });
+    }
+
+    @FXML
+    public void setLabelInShop(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int selectedHouse = houseChoice11.getSelectionModel().getSelectedIndex();
+                if(points.length > 0){
+                    amountOfPoints1.setText(String.valueOf(points[selectedHouse]));
                 }
             }
         });
@@ -793,5 +822,28 @@ public class MainController implements Initializable{
         });
     }
 
+    @FXML
+    public void setWarningLabel(String text){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                warningLabel.setText(text);
+            }
+        });
+    }
+
+    public void payManually(javafx.event.ActionEvent event) {
+        Product product = shopItemsTable.getSelectionModel().getSelectedItem();
+        int selectedHouse = houseChoice11.getSelectionModel().getSelectedIndex();
+        if(points[selectedHouse] - product.getCost() >= 0){
+            points[selectedHouse] -= product.getCost();
+            setPoints();
+            setLabelInShop();
+            setWarningLabel("");
+        }
+        else{
+            setWarningLabel("Niet genoeg punten.");
+        }
+    }
 }
 

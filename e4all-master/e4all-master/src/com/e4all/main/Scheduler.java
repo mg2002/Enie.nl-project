@@ -67,8 +67,9 @@ class Scheduler {
 
             int currentNumber = 0;
             int timeslotId = 0;
-            int current_day = 1;
+            int current_day = 0;
             hasBeenStarted = true;
+            Controllers.getMainController().setCurrentDay(current_day);
 
             while (true) {
                 try {
@@ -77,8 +78,10 @@ class Scheduler {
 //                    String end = "23:45";
                     System.out.println("EINDE: " + end);
                     if(timeToSend.equals(end)) {
-                        //current_day++;
-                        //if(current_day == Controllers.getMainController().getDays()) {
+                        current_day++;
+                        currentNumber = 0;
+                        Controllers.getMainController().setCurrentDay(current_day);
+                        if(current_day == Controllers.getMainController().getDays()) {
                             if (export.equals(true)) {
                                 transactions.getSingleTransactionList().forEach(transaction -> exportFile.append_transaction(transaction));
                                 exportFile.export();
@@ -102,7 +105,7 @@ class Scheduler {
                             }
                             Scheduler.pause = true;
                             //System.exit(0);
-                        //}
+                        }
                     }
 
                     for (House item : houses){
@@ -138,6 +141,7 @@ class Scheduler {
                     Controllers.getMainController().setKWh();
                     Controllers.getMainController().setPrices();
                     Controllers.getMainController().setPoints();
+                    Controllers.getMainController().setLabelInShop();
                     Controllers.getMainController().setLabelsInAchievements();
                     Controllers.getMainController().addToSurplusSeries(timeToSend, currentSurplus);
                     Controllers.getMainController().setDays(Controllers.getMainController().getDays());

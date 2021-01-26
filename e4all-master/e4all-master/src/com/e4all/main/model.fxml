@@ -15,7 +15,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -898,6 +897,11 @@
                                              <String fx:value="3" />
                                              <String fx:value="4" />
                                              <String fx:value="5" />
+                                             <String fx:value="6" />
+                                             <String fx:value="7" />
+                                             <String fx:value="8" />
+                                             <String fx:value="9" />
+                                             <String fx:value="10" />
                                           </FXCollections>
                                        </items>
                                     </ComboBox>
@@ -954,17 +958,13 @@
                                       </rowConstraints>
                                        <children>
                                           <Label prefHeight="42.0" prefWidth="82.0" text="Aantal punten:" />
-                                          <Label prefHeight="18.0" prefWidth="77.0" text="Huidige rang:" GridPane.rowIndex="3" />
                                           <Label prefHeight="18.0" prefWidth="150.0" text="Energie verhandeld in kWh:" GridPane.rowIndex="1" />
                                           <Label fx:id="amountOfPoints" text="0" GridPane.columnIndex="1" />
                                           <Label fx:id="amountOfSoldEnergy" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label fx:id="currentRank" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label prefHeight="18.0" prefWidth="150.0" text="Totale omzet:                    €" GridPane.rowIndex="2" />
                                           <Label fx:id="amountOfRevenue" prefHeight="18.0" prefWidth="54.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                        </children>
                                     </GridPane>
-                                    <Label prefHeight="18.0" prefWidth="83.0" text="Volgende rang:" />
-                                    <ProgressBar fx:id="rankProgressBar" prefHeight="18.0" prefWidth="210.0" progress="0.0" />
                                  </children>
                               </VBox>
                               <VBox prefHeight="343.0" prefWidth="393.0">
@@ -1016,7 +1016,9 @@
                                     <Label prefHeight="18.0" prefWidth="186.0" text="Aantal punten:" />
                                     <Label fx:id="amountOfPoints1" text="0" />
                                     <Label prefHeight="18.0" prefWidth="190.0" text="Lijst van gekochte items:" />
-                                    <ListView prefHeight="293.0" prefWidth="187.0" />
+                                    <ListView prefHeight="222.0" prefWidth="183.0" />
+                                    <Button fx:id="payButton" mnemonicParsing="false" onAction="#payManually" prefHeight="26.0" prefWidth="186.0" text="Handmatig betalen" />
+                                    <Label fx:id="warningLabel" />
                                  </children>
                               </VBox>
                               <TableView fx:id="shopItemsTable" prefHeight="344.0" prefWidth="422.0">

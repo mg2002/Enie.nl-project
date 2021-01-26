@@ -2,8 +2,8 @@ package com.e4all.main;
 
 public class Product {
 
-    public String name;
-    public int cost;
+    private String name;
+    private int cost;
 
     public Product(String name, int cost){
         this.name = name;
