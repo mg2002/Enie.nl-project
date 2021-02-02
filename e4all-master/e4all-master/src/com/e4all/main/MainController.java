@@ -34,11 +34,11 @@ public class MainController implements Initializable{
     int days = 1;
     GlobalVariables globalVariables = new GlobalVariables();
     Double[] cumulativeSupplyPrices = new Double[10];
-    //Double[] cumulativeBuyerPrices = new Double[10];
     Double[] cumulativeSupplyKWh = new Double[10];
-    //Double[] cumulativeBuyerKWh = new Double[10];
     Double[] points = new Double[10];
+    int[] batteryChargeCount = new int[10];
     ObservableList[] achievements = new ObservableList[10];
+    ObservableList[] products = new ObservableList[10];
     HashMap<Integer, HashMap<String, String>> currentMap = new HashMap<>();
 
     Boolean autoSelected = false;
@@ -52,7 +52,6 @@ public class MainController implements Initializable{
 
     XYChart.Series surplusSeries;
     public static ObservableList<SingleTransaction> transactionObservableList = FXCollections.observableArrayList();
-    public static ObservableList<Achievement> achievementObservableList = FXCollections.observableArrayList();
     public static ObservableList<Product> productObservableList = FXCollections.observableArrayList();
     Image moonImage = new Image("com/e4all/main/Resources/Assets/moon.jpeg");
     Image sunImage = new Image("com/e4all/main/Resources/Assets/sun.jpg");
@@ -81,6 +80,9 @@ public class MainController implements Initializable{
 
     @FXML
     public Label currentDay;
+
+    @FXML
+    public ListView<Label> productsBoughtList;
 
     @FXML
     public Circle indicator1, indicator2, indicator3, indicator4, indicator5, indicator6, indicator7, indicator8, indicator9, indicator10;
@@ -146,11 +148,18 @@ public class MainController implements Initializable{
                 this.cumulativeSupplyKWh[i] = total;
                 Achievement trader = (Achievement) achievements[i].get(0);
                 int[] traderMilestones = trader.getMilestones();
-                if(total >= traderMilestones[trader.getLevel()]){
-                    trader.setLevel(trader.getLevel() + 1);
-                    trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " kWh aan energie.");
-                    points[i]++;
-                    updateAchievementRank();
+                if (trader.getLevel() < traderMilestones.length) {
+                    if(total >= traderMilestones[trader.getLevel()]){
+                        trader.setLevel(trader.getLevel() + 1);
+                        if (trader.getLevel() < traderMilestones.length) {
+                            trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " kWh aan energie.");
+                        }
+                        else{
+                            trader.setDescription("Hoogste niveau bereikt.");
+                        }
+                        points[i]++;
+                        updateAchievementRank();
+                    }
                 }
             }
         }
@@ -184,11 +193,18 @@ public class MainController implements Initializable{
                 this.cumulativeSupplyPrices[i] = total;
                 Achievement trader2 = (Achievement) achievements[i].get(2);
                 int[] traderMilestones = trader2.getMilestones();
-                if(total >= traderMilestones[trader2.getLevel()]){
-                    trader2.setLevel(trader2.getLevel() + 1);
-                    trader2.setDescription("Maak €" + traderMilestones[trader2.getLevel()] + " omzet.");
-                    points[i]++;
-                    updateAchievementRank();
+                if(trader2.getLevel() < traderMilestones.length){
+                    if(total >= traderMilestones[trader2.getLevel()]){
+                        trader2.setLevel(trader2.getLevel() + 1);
+                        if(trader2.getLevel() < traderMilestones.length){
+                            trader2.setDescription("Maak €" + traderMilestones[trader2.getLevel()] + " omzet.");
+                        }
+                        else{
+                            trader2.setDescription("Hoogste niveau bereikt.");
+                        }
+                        points[i]++;
+                        updateAchievementRank();
+                    }
                 }
             }
         }
@@ -260,8 +276,8 @@ public class MainController implements Initializable{
         productObservableList.add(new Product("30% korting op volgende energierekening", 5));
         productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 6));
         productObservableList.add(new Product("Bamboe ondergoed", 8));
-        productObservableList.add(new Product("Fairphone 3", 40));
-        productObservableList.add(new Product("Extra zonnepaneel", 50));
+        productObservableList.add(new Product("Fairphone 3", 15));
+        productObservableList.add(new Product("Extra zonnepaneel", 20));
 
         shopItemsTable.setItems(productObservableList);
         productColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -270,10 +286,13 @@ public class MainController implements Initializable{
 
         for(int i=0; i<10; i++){
             ObservableList<Achievement> achievementsPerHouse = FXCollections.observableArrayList();
-            achievementsPerHouse.add(new Achievement(0, "Energiehandelaar", "Verhandel 1 kWh aan energie.", new int[]{1, 2, 5, 10, 20}));
-            achievementsPerHouse.add(new Achievement(0, "Oplader", "Laad de batterij 1 keer op.", new int[]{1, 2, 5, 10, 20}));
-            achievementsPerHouse.add(new Achievement(0, "Verkoper", "Maak €1 omzet.", new int[]{1, 2, 3, 5, 10, 20}));
+            achievementsPerHouse.add(new Achievement(0, "Energiehandelaar", "Verhandel 1 kWh aan energie.", new int[]{1, 2, 5, 10, 20, 50, 100, 150}));
+            achievementsPerHouse.add(new Achievement(0, "Oplader", "Laad de batterij 1 keer op.", new int[]{1, 2, 5, 10, 20, 50, 100, 150}));
+            achievementsPerHouse.add(new Achievement(0, "Verkoper", "Maak €1 omzet.", new int[]{1, 2, 3, 5, 10, 20, 50, 100, 150}));
             achievements[i] = achievementsPerHouse;
+            ObservableList<Label> productsPerHouse = FXCollections.observableArrayList();
+            products[i] = productsPerHouse;
+
         }
         int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
         achievementList.setItems(achievements[selectedHouse]);
@@ -360,6 +379,17 @@ public class MainController implements Initializable{
                 if(cumulativeSupplyPrices.length > 0){
                     amountOfRevenue.setText(new DecimalFormat("#.##").format(cumulativeSupplyPrices[selectedHouse]));
                 }
+            }
+        });
+    }
+
+    @FXML
+    public void setItemsInAchievements(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
+                achievementList.setItems(achievements[selectedHouse]);
             }
         });
     }
@@ -771,6 +801,29 @@ public class MainController implements Initializable{
         batteryMap.put(10, battery10);
 
         Label localBattery = batteryMap.get(houseNumber);
+        Achievement achievement = (Achievement) achievements[houseNumber - 1].get(1);
+
+        if(percentage < 100){
+            achievement.setAchieved(false);
+        }
+        if(percentage >= 100){
+            batteryChargeCount[houseNumber - 1]++;
+            int currentChargeCount = batteryChargeCount[houseNumber - 1];
+            int[] milestones = achievement.getMilestones();
+            if(achievement.getLevel() < milestones.length){
+                if(currentChargeCount >= milestones[achievement.getLevel()] && !achievement.getAchieved()) {
+                    achievement.setLevel(achievement.getLevel() + 1);
+                    if(achievement.getLevel() < milestones.length){
+                        achievement.setDescription("Laad de batterij " + milestones[achievement.getLevel()] + " keer op.");
+                    }
+                    else{
+                        achievement.setDescription("Hoogste niveau bereikt.");
+                    }
+                    achievement.setAchieved(true);
+                    points[houseNumber - 1]++;
+                }
+            }
+        }
 
         Platform.runLater(new Runnable(){
             @Override
@@ -840,10 +893,48 @@ public class MainController implements Initializable{
             setPoints();
             setLabelInShop();
             setWarningLabel("");
+            addToProductsList(selectedHouse, new Label(product.getName()));
         }
         else{
             setWarningLabel("Niet genoeg punten.");
         }
+    }
+
+    public void payAutomatically(){
+        Random random = new Random();
+        int houseNumber = random.nextInt(10);
+        boolean affordable = false;
+        if(points[houseNumber] > 1){
+            while(!affordable){
+                Product product = productObservableList.get(random.nextInt(productObservableList.size()));
+                if(product.getCost() <= points[houseNumber]){
+                    affordable = true;
+                    points[houseNumber] -= product.getCost();
+                    setPoints();
+                    setLabelInShop();
+                    addToProductsList(houseNumber, new Label(product.getName()));
+                }
+            }
+        }
+    }
+
+    public void addToProductsList(int number, Label item){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                products[number].add(item);
+            }
+        });
+    }
+
+    public void setProductObservableList(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int selectedHouse = houseChoice11.getSelectionModel().getSelectedIndex();
+                productsBoughtList.setItems(products[selectedHouse]);
+            }
+        });
     }
 }
 

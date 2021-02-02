@@ -1016,7 +1016,7 @@
                                     <Label prefHeight="18.0" prefWidth="186.0" text="Aantal punten:" />
                                     <Label fx:id="amountOfPoints1" text="0" />
                                     <Label prefHeight="18.0" prefWidth="190.0" text="Lijst van gekochte items:" />
-                                    <ListView prefHeight="222.0" prefWidth="183.0" />
+                                    <ListView fx:id="productsBoughtList" prefHeight="222.0" prefWidth="183.0" />
                                     <Button fx:id="payButton" mnemonicParsing="false" onAction="#payManually" prefHeight="26.0" prefWidth="186.0" text="Handmatig betalen" />
                                     <Label fx:id="warningLabel" />
                                  </children>

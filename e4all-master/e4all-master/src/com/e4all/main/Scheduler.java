@@ -4,6 +4,7 @@ import util.StringArray;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 class Scheduler {
 
@@ -143,12 +144,18 @@ class Scheduler {
                     Controllers.getMainController().setPoints();
                     Controllers.getMainController().setLabelInShop();
                     Controllers.getMainController().setLabelsInAchievements();
+                    Controllers.getMainController().setItemsInAchievements();
+                    Controllers.getMainController().setProductObservableList();
+
+                    Random random = new Random();
+                    if(random.nextInt(10) == 6){
+                        Controllers.getMainController().payAutomatically();
+                    }
+
                     Controllers.getMainController().addToSurplusSeries(timeToSend, currentSurplus);
                     Controllers.getMainController().setDays(Controllers.getMainController().getDays());
-
                     Controllers.getMainController().addToSeries(false, timeToSend, cycleSupply);
                     Controllers.getMainController().addToSeries(true, timeToSend, cycleDemand);
-
                     Controllers.getMainController().addToFirstSeries(false, timeToSend, cycleProduction);
                     Controllers.getMainController().addToFirstSeries(true, timeToSend, cycleConsumption);
 
