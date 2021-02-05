@@ -1,6 +1,7 @@
 package com.e4all.main;
 import util.StringArray;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -104,6 +105,11 @@ class Scheduler {
                             for (int i = 0; i < pointsArray.length; i++) {
                                 System.out.println("Household " + (i + 1) + ": " + pointsArray[i]);
                             }
+                            System.out.println("XP: ");
+                            int[] xp = Controllers.getMainController().getXP();
+                            for(int i = 0; i < xp.length; i++){
+                                System.out.println("Household " + (i + 1) + ": " + xp[i]);
+                            }
                             Scheduler.pause = true;
                             //System.exit(0);
                         }
@@ -145,6 +151,8 @@ class Scheduler {
                     Controllers.getMainController().setLabelInShop();
                     Controllers.getMainController().setLabelsInAchievements();
                     Controllers.getMainController().setItemsInAchievements();
+                    Controllers.getMainController().setRanks();
+                    Controllers.getMainController().setRankLabels();
                     Controllers.getMainController().setProductObservableList();
 
                     Random random = new Random();

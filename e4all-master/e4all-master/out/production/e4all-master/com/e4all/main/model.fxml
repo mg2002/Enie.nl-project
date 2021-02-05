@@ -954,7 +954,6 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
                                           <Label prefHeight="42.0" prefWidth="82.0" text="Aantal punten:" />
@@ -965,6 +964,18 @@
                                           <Label fx:id="amountOfRevenue" prefHeight="18.0" prefWidth="54.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                        </children>
                                     </GridPane>
+                                    <HBox prefHeight="19.0" prefWidth="172.0">
+                                       <children>
+                                          <Label prefHeight="18.0" prefWidth="82.0" text="Huidige Rang:" />
+                                          <Label fx:id="currentRank" prefHeight="18.0" prefWidth="119.0" text="Beginner" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="18.0" prefWidth="206.0">
+                                       <children>
+                                          <Label fx:id="experiencePoints" prefHeight="18.0" prefWidth="21.0" text="0" />
+                                          <Label prefHeight="18.0" prefWidth="28.0" text="XP" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                               <VBox prefHeight="343.0" prefWidth="393.0">

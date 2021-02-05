@@ -39,6 +39,10 @@ public class MainController implements Initializable{
     int[] batteryChargeCount = new int[10];
     ObservableList[] achievements = new ObservableList[10];
     ObservableList[] products = new ObservableList[10];
+    int[] xp = new int[10];
+    int[] ranks = new int[10];
+    String[] rankLabels = new String[]{"Beginner", "Amateur", "Handelaar", "Gevorderde", "Koning"};
+    int[] rankMilestones = new int[]{100, 200, 500, 1000};
     HashMap<Integer, HashMap<String, String>> currentMap = new HashMap<>();
 
     Boolean autoSelected = false;
@@ -82,7 +86,13 @@ public class MainController implements Initializable{
     public Label currentDay;
 
     @FXML
+    public Label experiencePoints;
+
+    @FXML
     public ListView<Label> productsBoughtList;
+
+    @FXML
+    public Label currentRank;
 
     @FXML
     public Circle indicator1, indicator2, indicator3, indicator4, indicator5, indicator6, indicator7, indicator8, indicator9, indicator10;
@@ -129,6 +139,35 @@ public class MainController implements Initializable{
     @FXML
     private TableColumn achievementNameColumn, achievementDescriptionColumn, achievementLevelColumn;
 
+    public void addXP(int houseNumber, int level){
+        switch(level){
+            case 1:
+                xp[houseNumber] += 5;
+                break;
+            case 2:
+                xp[houseNumber] += 10;
+                break;
+            case 3:
+                xp[houseNumber] += 20;
+                break;
+            case 4:
+                xp[houseNumber] += 50;
+                break;
+            case 5:
+                xp[houseNumber] += 100;
+                break;
+            case 6:
+                xp[houseNumber] += 150;
+                break;
+            case 7:
+                xp[houseNumber] += 200;
+                break;
+            default:
+                // do nothing
+                break;
+        }
+    }
+
 
     public int getDays(){
         return this.daysChoice.getSelectionModel().getSelectedIndex() + 1;
@@ -153,6 +192,7 @@ public class MainController implements Initializable{
                         trader.setLevel(trader.getLevel() + 1);
                         if (trader.getLevel() < traderMilestones.length) {
                             trader.setDescription("Verhandel " + traderMilestones[trader.getLevel()] + " kWh aan energie.");
+                            addXP(i, trader.getLevel());
                         }
                         else{
                             trader.setDescription("Hoogste niveau bereikt.");
@@ -198,6 +238,7 @@ public class MainController implements Initializable{
                         trader2.setLevel(trader2.getLevel() + 1);
                         if(trader2.getLevel() < traderMilestones.length){
                             trader2.setDescription("Maak €" + traderMilestones[trader2.getLevel()] + " omzet.");
+                            addXP(i, trader2.getLevel());
                         }
                         else{
                             trader2.setDescription("Hoogste niveau bereikt.");
@@ -273,8 +314,9 @@ public class MainController implements Initializable{
         productObservableList.add(new Product("Wegwerpbestek-set", 1));
         productObservableList.add(new Product("Neleman bio-wijn", 2));
         productObservableList.add(new Product("15% korting op de volgende energierekening", 3));
-        productObservableList.add(new Product("30% korting op volgende energierekening", 5));
+        productObservableList.add(new Product("30% korting op de volgende energierekening", 5));
         productObservableList.add(new Product("Kartonnen afvalscheidingsprullenbakken", 6));
+        productObservableList.add(new Product("50% korting op de volgende energierekening", 8));
         productObservableList.add(new Product("Bamboe ondergoed", 8));
         productObservableList.add(new Product("Fairphone 3", 15));
         productObservableList.add(new Product("Extra zonnepaneel", 20));
@@ -292,14 +334,57 @@ public class MainController implements Initializable{
             achievements[i] = achievementsPerHouse;
             ObservableList<Label> productsPerHouse = FXCollections.observableArrayList();
             products[i] = productsPerHouse;
-
         }
+        Arrays.fill(xp, 0);
+        Arrays.fill(ranks, 0);
         int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
         achievementList.setItems(achievements[selectedHouse]);
         achievementNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         achievementDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         achievementLevelColumn.setCellValueFactory(new PropertyValueFactory<>("level"));
         achievementList.setPlaceholder(new Label("Heel misschien zijn er geen achievements toegevoegd."));
+    }
+
+    public void setRanks(){
+        for(int i = 0; i < 10; i++){
+            int rank = ranks[i];
+            if (rank < 4) {
+                if(xp[i] >= rankMilestones[rank]){
+                    ranks[i]++;
+                }
+            }
+        }
+    }
+
+    public void setRankLabels(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int selectedHouse = houseChoice1.getSelectionModel().getSelectedIndex();
+                int rank = ranks[selectedHouse];
+                switch(rank){
+                    case 0:
+                        currentRank.setText("Beginner");
+                        break;
+                    case 1:
+                        currentRank.setText("Amateur");
+                        break;
+                    case 2:
+                        currentRank.setText("Handelaar");
+                        break;
+                    case 3:
+                        currentRank.setText("Gevorderde");
+                        break;
+                    default:
+                        currentRank.setText("Koning");
+                        break;
+                }
+            }
+        });
+    }
+
+    public void setRankProgressBar(){
+
     }
 
 
@@ -378,6 +463,9 @@ public class MainController implements Initializable{
                 }
                 if(cumulativeSupplyPrices.length > 0){
                     amountOfRevenue.setText(new DecimalFormat("#.##").format(cumulativeSupplyPrices[selectedHouse]));
+                }
+                if(xp.length > 0){
+                    experiencePoints.setText(String.valueOf(xp[selectedHouse]));
                 }
             }
         });
@@ -815,6 +903,9 @@ public class MainController implements Initializable{
                     achievement.setLevel(achievement.getLevel() + 1);
                     if(achievement.getLevel() < milestones.length){
                         achievement.setDescription("Laad de batterij " + milestones[achievement.getLevel()] + " keer op.");
+                        if(ranks[houseNumber - 1] < 4){
+                            addXP(houseNumber - 1, achievement.getLevel());
+                        }
                     }
                     else{
                         achievement.setDescription("Hoogste niveau bereikt.");
@@ -916,6 +1007,10 @@ public class MainController implements Initializable{
                 }
             }
         }
+    }
+
+    public int[] getXP(){
+        return xp;
     }
 
     public void addToProductsList(int number, Label item){
